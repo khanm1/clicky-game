@@ -5,6 +5,5 @@ Click-Game is a memory skill application built using React. The objective of the
 
 * HTML
 * CSS
-* Bootstrap (<http://getbootstrap.com/>)
 * Javascript
 * React (<https://reactjs.org/>)
