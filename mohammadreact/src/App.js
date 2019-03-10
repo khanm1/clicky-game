@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Card from "./components/Card";
 import Wrapper from "./components/Wrapper";
-import Header from "./components/Header/header";
+import Header from "./components/Header";
 import cards from "./cards.json";
 import "./App.css";
+
 
 class App extends Component {
   state = {
@@ -12,34 +13,23 @@ class App extends Component {
     highscore: 0
   };
 
-  gameOver = () => {
-    if (this.state.score > this.state.highscore) {
-      this.setState({highscore: this.state.score}, function() {
-        console.log(this.state.highscore);
-      });
-    }
-    this.state.cards.forEach(card => {
-      card.count = 0;
-    });
-    alert(`Better luck next time! \nscore: ${this.state.score}`);
-    this.setState({score: 0});
-    return true;
-  }
 
   clickCount = id => {
-    this.state.cards.find((x, i) => {
-      if (x.id === id) {
-        if(cards[i].count === 0){
-          cards[i].count = cards[i].count + 1;
-          this.setState({score : this.state.score + 1}, function(){
-            console.log(this.state.score);
-          });
-          this.state.cards.sort(() => Math.random() - 0.5)
-          return true; 
-        } else {
-          this.gameOver();
+    this.state.cards.map(cardobject => {
+      if (cardobject.id === id) {
+
+        if(cardobject.count === 0){
+        cardobject.count = 1;
+      
+          this.setState({cards, score : this.state.score + 1, highscore:this.state.highscore+1});
+        return 0;
+        }
+        if (cardobject.count=== 1){
+          this.setState({score:0});
+          return 1;
         }
       }
+      return 1;
     });
   }
   render() {
@@ -52,6 +42,7 @@ class App extends Component {
             id={card.id}
             key={card.id}
             image={card.image}
+            name={card.name}
           />
         ))}
       </Wrapper>
